@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class move : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private int _speed;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _jumpSpeed = 1;
+    //Vector3 vector = new Vector3();
     void Start()
     {
         
@@ -15,7 +17,12 @@ public class Move : MonoBehaviour
     void Update()
     {
         var inputSpeed = Input.GetAxis("Horizontal") * _speed *Time.deltaTime;
-        var velocity = transform.right
-
+        var jumpSpeed = Input.GetAxis("Jump") * _jumpSpeed *Time.deltaTime;
+        var velocity = transform.right * inputSpeed;
+        var velocityJump = transform.up * jumpSpeed;
+        transform.position += velocity;
+        transform.position += velocityJump;
+        if (Input.GetKeyDown(KeyCode.D)) gameObject.transform.localScale = new Vector3(1,1,1);
+        if (Input.GetKeyDown(KeyCode.A)) gameObject.transform.localScale = new Vector3(-1,1,1);
     }
 }
